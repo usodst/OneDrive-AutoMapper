@@ -1,4 +1,4 @@
-#Requires -Version 5.0
+#Requires -Version 5.0 -Module CredentialManager
 <#
 
 .SYNOPSIS
@@ -36,9 +36,22 @@ N.B. This is an updated version of my previous script "AutoMapUnifiedGroupDrives
 ####################################################
 
     #Required credentials - Get the client_id and client_secret from the app when creating it i Azure AD
-    $client_id = "88d56j01-856ja-tjdj-8166-9sdju56j56j" #App ID
-    $client_secret = "i3stryjtyjdtyjdtyz1Xhl:" #API Access Key Password
+    # $client_id = "88d56j01-856ja-tjdj-8166-9sdju56j56j" #App ID
+    # $client_secret = "i3stryjtyjdtyjdtyz1Xhl:" #API Access Key Password
     #Idealy you would secure this secret in some way, instead of having it here in clear text.
+
+    #Removed hard coded credentials in favor of retrieving credentials from the credential vault
+    #using the CredentialManager module
+    #By default the Get-StoredCredential cmdlet will search the credential manager for a generic credential
+    #with the name of SharePointClientId
+
+    #Create the generic credential by using the cmdlet New-StoredCredential in the CredentialManager module or
+    #Manually by clicking on the 'Add a generic credential' button from the credential manager.
+    #Ensure that AppRegistration is the value for Internet or network address
+
+    $storedCredential = Get-StoredCredential -Target 'AppRegistration' -AsCredentialObject
+    $clientId = $storedCredential.UserName
+    $client_secret = $storedCredential.Password
 
     #tenant_id can be read from the azure portal of your tenant (a.k.a Directory ID, shown when you do the App Registration)
     $tenant_id = "1jd56j54-cj6d565-4d56je-9jd54-118f5d6j8" #Directory ID
