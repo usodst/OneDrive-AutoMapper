@@ -1,5 +1,11 @@
 # OneDrive-AutoMapper
 
+This script uses the CredentialManager module to securely store the client id and secret of the app registration.
+
+More information on the CredentialManager module: https://github.com/davotronic5000/PowerShell_Credential_Manager
+
+---
+
 A scripted solution for fully automating the sync of Document Libraries to the OneDrive desktop client.
 
 BLOG Post here: https://www.iphase.dk/auto-mapping-office-365-group-drives-with-onedrive/
